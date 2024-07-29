@@ -1,0 +1,5 @@
+streamlit
+pillow
+python-dotenv
+PyPDF2
+pdf2image
