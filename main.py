@@ -54,7 +54,7 @@ if uploaded_file is not None:
     # 응답 표시
     if response.status_code == 200:
         st.success("API 요청이 성공적으로 전송되었습니다.")
-        st.json(response_data)
+        #st.json(response_data)
         if 'result' in response_data:
             if len(response_data['result'])==0:
                 st.write('result가 추출되지 않았습니다.')
