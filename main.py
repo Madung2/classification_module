@@ -67,7 +67,8 @@ if uploaded_files:
                         target_element = result['templateName']
                         if isinstance(target_element, str) and len(target_element) > 0:
                             target_element = target_element.replace(" ", "_")
-                            documents_path = os.path.join(os.path.expanduser("~"), saved_dir, target_element)
+                            documents_dir = os.path.join(os.path.expanduser("~"), "Documents")
+                            documents_path = os.path.join(documents_dir, saved_dir, target_element)
                             
                             # 디렉토리가 존재하는지 확인하고 없으면 생성
                             if not os.path.exists(documents_path):
