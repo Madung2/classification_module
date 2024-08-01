@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "classification"
+version = "0.1.0"
+description = ""
+authors = ["Madung2 <tuliphan91@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+streamlit = "^1.37.0"
+pillow = "^10.4.0"
+python-dotenv = "^1.0.1"
+pypdf2 = "^3.0.1"
+pdf2image = "^1.17.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
