@@ -43,15 +43,19 @@ def display_files(directory):
         for file in files:
             file_path = os.path.join(directory, folder, file)
             with open(file_path, "rb") as file_data:
-                st.download_button(
+                if st.download_button(
                     label=file,
                     data=file_data,
                     file_name=file,
                     key=file_path
-                )
+                ):
+                    st.session_state.selected_image_path = file_path
+
 ##################################streamlit#####################################
 # 페이지 제목
 st.title("Image Classifier")
+
+
 
 st.markdown("""
     <style>
@@ -75,6 +79,13 @@ with st.sidebar:
     if os.path.exists(saved_path):
         st.write(f"{saved_path}")
         display_files(saved_path)
+
+
+# 선택한 이미지를 메인 화면에 표시
+if "selected_image_path" in st.session_state:
+    image_path = st.session_state.selected_image_path
+    image = Image.open(image_path)
+    st.image(image, caption=os.path.basename(image_path), use_column_width=True)
 
 
 # 폴더 선택 위젯
