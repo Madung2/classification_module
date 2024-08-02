@@ -39,13 +39,19 @@ def list_files_in_directory(directory):
 
 def display_files(directory):
     file_structure = list_files_in_directory(directory)
+    print('####################################')
+    print(file_structure)
+    print('####################################')
     for folder, files in file_structure.items():
-        st.write(f"**{folder}**")
+
+        if len(files) != 0:
+            st.markdown("***")
+            st.write(f"**📁{folder}**")
         for file in files:
             file_path = os.path.join(directory, folder, file)
             with open(file_path, "rb") as file_data:
                 if st.download_button(
-                    label=file,
+                    label=f"📄{file}",
                     data=file_data,
                     file_name=file,
                     key=file_path
@@ -71,14 +77,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 # 사이드바에 초기화 버튼 추가
 with st.sidebar:
-    # st.title('파일찾기')
-
     if st.button("파일 업로드 초기화", key="delete_button"):
         delete_saved_dir()
     documents_dir = os.path.join(os.path.expanduser("~"), "Documents")
     saved_path = os.path.join(documents_dir, saved_dir)
     if os.path.exists(saved_path):
-        st.write(f"{saved_path}")
+        #st.write(f"{saved_path}")
         display_files(saved_path)
 
 
@@ -125,6 +129,7 @@ while not upload_queue.empty():
     # API 요청 보내기
     response = requests.post(api_url, json=payload)
     response_data = response.json()
+    print(response_data)
 
     # 응답 표시
     if response.status_code == 200:
@@ -133,12 +138,17 @@ while not upload_queue.empty():
                 st.write('result가 추출되지 않았습니다.')
             else:
                 result = response_data['result'][0]["classificationResult"]
+                print(response_data['result'])
+                
                 if isinstance(result, dict) and len(result) > 0:
                     target_element = result['templateName']
                     if isinstance(target_element, str) and len(target_element) > 0:
                         target_element = target_element.replace(" ", "_")
                         documents_dir = os.path.join(os.path.expanduser("~"), "Documents")
                         documents_path = os.path.join(documents_dir, saved_dir, target_element)
+                        if '신탁계약서' in target_element:
+                            contract_dir = uploaded_file.name.split(' ')[0]
+                            documents_path = os.path.join(documents_path, contract_dir)
                         
                         # 디렉토리가 존재하는지 확인하고 없으면 생성
                         if not os.path.exists(documents_path):
@@ -150,7 +160,7 @@ while not upload_queue.empty():
                         st.write(f"이미지를 {file_path}에 저장했습니다.")
                     else:
                         documents_dir = os.path.join(os.path.expanduser("~"), "Documents")
-                        documents_path = os.path.join(documents_dir, saved_dir, 'others')
+                        documents_path = os.path.join(documents_dir, saved_dir, '_others')
                         if not os.path.exists(documents_path):
                             os.makedirs(documents_path)
                         file_path = os.path.join(documents_path, uploaded_file.name)
