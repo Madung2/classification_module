@@ -53,12 +53,22 @@ def display_files(directory):
 # 페이지 제목
 st.title("Image Classifier")
 
-
+st.markdown("""
+    <style>
+    .big-button {
+        display: block;
+        width: 100%;
+        height: 60px;
+        font-size: 20px;
+        margin: 10px 0;
+    }
+    </style>
+""", unsafe_allow_html=True)
 # 사이드바에 초기화 버튼 추가
 with st.sidebar:
-    st.title('파일찾기')
+    # st.title('파일찾기')
 
-    if st.button("초기화"):
+    if st.button("파일 업로드 초기화", key="delete_button"):
         delete_saved_dir()
     documents_dir = os.path.join(os.path.expanduser("~"), "Documents")
     saved_path = os.path.join(documents_dir, saved_dir)
