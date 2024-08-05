@@ -26,6 +26,7 @@ def image_to_base64(image):
 def delete_saved_dir():
     documents_dir = os.path.join(os.path.expanduser("~"), "Documents")
     saved_path = os.path.join(documents_dir, saved_dir)
+    st.session_state.selected_image_path = None
     if os.path.exists(saved_path):
         shutil.rmtree(saved_path)
         st.success(f"{saved_path} 디렉토리를 삭제했습니다.")
@@ -79,6 +80,7 @@ st.markdown("""
 with st.sidebar:
     if st.button("파일 업로드 초기화", key="delete_button"):
         delete_saved_dir()
+        ### 이미지 뷰어
     documents_dir = os.path.join(os.path.expanduser("~"), "Documents")
     saved_path = os.path.join(documents_dir, saved_dir)
     if os.path.exists(saved_path):
@@ -87,7 +89,7 @@ with st.sidebar:
 
 
 # 선택한 이미지를 메인 화면에 표시
-if "selected_image_path" in st.session_state:
+if "selected_image_path" in st.session_state and st.session_state.selected_image_path:
     image_path = st.session_state.selected_image_path
     image = Image.open(image_path)
     st.image(image, caption=os.path.basename(image_path), use_column_width=True)
