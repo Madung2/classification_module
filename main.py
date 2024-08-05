@@ -60,7 +60,7 @@ def display_files(directory):
 
 ##################################streamlit#####################################
 # 페이지 제목
-st.title("Image Classifier")
+st.title("이미지 문서 Classifier")
 
 
 
