@@ -35,7 +35,7 @@ def list_files_in_directory(directory):
     file_structure = {}
     for root, dirs, files in os.walk(directory):
         relative_path = os.path.relpath(root, directory)
-        file_structure[relative_path] = files
+        file_structure[relative_path] = sorted(files)
     return file_structure
 
 def display_files(directory):
