@@ -130,8 +130,20 @@ while not upload_queue.empty():
 
     # API 요청 보내기
     response = requests.post(api_url, json=payload)
+    print(1111111, response)
+    print(22222, response)
     response_data = response.json()
-    print(response_data)
+    print(3333333, response_data)
+
+    # if response:
+    #     print('response', response)
+
+    #     response_data = response.json()
+    #     logging.info(response_data)
+    # else:
+    #     st.error('응답이 비어 있습니다.')
+    #     logging.error('empty response received')
+    #     continue
 
     # 응답 표시
     if response.status_code == 200:
